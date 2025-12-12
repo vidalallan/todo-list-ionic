@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Tarefas </ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+
+  <ion-card-content class="card-format">
+    <ion-card-title class="card-title"> 
+      Nova Tarefa
+    </ion-card-title>
+  </ion-card-content>
+
+  <ion-card-content class="card-format">
+    <ion-card-title class="card-title"> 
+      
+      <ion-item>
+        <ion-input 
+          label="Título:" 
+          placeholder="Digite o título da tarefa"
+          [(ngModel)]="title">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input 
+          label="Descrição:" 
+          placeholder="Digite a descrição da tarefa"
+          [(ngModel)]="description">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input 
+          label="Início:"
+          type="datetime-local"
+          placeholder="2025-12-11T10:00:00"
+          [(ngModel)]="startTask">
+        </ion-input>
+      </ion-item>      
+        
+      <ion-item>
+        <ion-input 
+            label="Fim:"
+            type="datetime-local"
+            placeholder="2025-12-11T10:00:00"
+            [(ngModel)]="endTask">
+        </ion-input>
+      </ion-item>
+        
+      <ion-item>
+        <ion-select 
+          [(ngModel)]="selectedTypeTaskId"
+          label="Tipo de Tarefa"
+          placeholder="Selecione um tipo de tarefa"
+          label-placement="start">
+
+          <ion-select-option 
+            *ngFor="let tt of typeTaskList"
+            [value]="tt.id">
+              {{ tt.title }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+        <ion-item>
+          <ion-select 
+              [(ngModel)]="selectedStatusId"
+              label="Status Padrão"
+              placeholder="Selecione um status"
+              label-placement="start">
+
+              <ion-select-option 
+                *ngFor="let s of statusList"
+                [value]="s.id">
+                  {{ s.title }}
+              </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          color="success" 
+          (click)="createTask()"
+          *ngIf="!editingTaskId">
+          Salvar Nova Tarefa
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          color="warning" 
+          *ngIf="editingTaskId"
+          (click)="updateTask()">
+          Atualizar Tarefa
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          color="dark" 
+          *ngIf="editingTaskId"
+          (click)="cancelEdit()">
+          Cancelar Edição
+        </ion-button>
+
+      </ion-card-title>   
+
+    </ion-card-content>
+
+    <!-- Lista de Tarefas existentes -->
+    <ion-card-content class="card-format">
+
+        <ion-card-title class="card-title">
+          Tarefas Existentes
+        </ion-card-title>  
+
+        <ion-grid>
+            <ion-row class="title_line_table">
+              <ion-col> Título </ion-col>
+              <ion-col> Descrição </ion-col>
+              <ion-col> Início</ion-col>
+              <ion-col> Tipo de Tarefa </ion-col>
+              <ion-col> Status </ion-col>
+              <ion-col> Ações </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        <ion-grid>
+
+        <ion-row *ngFor="let t of tasks" class="line_table">
+          <ion-col>{{ t.title }}</ion-col>
+          <ion-col>{{ t.description }}</ion-col>
+          <ion-col>{{ t.startTask | date:'dd/MM/yyyy HH:mm' }}</ion-col>
+          <ion-col>{{ t.typeTaskTitle }}</ion-col>
+          <ion-col>{{ t.statusTaskTitle }}</ion-col>
+          <ion-col>
+
+          <ion-button 
+            fill="clear" 
+            class="blue"
+            (click)="editTask(t)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button 
+            fill="clear"
+            class="red"
+            (click)="deleteTask(t.id)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    </ion-card-content>
+
+</ion-content>

@@ -1,0 +1,74 @@
+.card-format{
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    margin: 15px 20px;
+}
+
+.card-title{
+    margin: 15px 0px;
+}
+
+.tx-input{
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    margin: 10px 0px;    
+    --padding-start:10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-group .tx-input {
+    flex-grow: 1;
+    width: 100%;    
+    
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    margin: 10px 0px;
+    --padding-start: 10px;
+}
+
+.card-format {    
+    padding: 15px;
+}
+
+.card-title {
+    margin-bottom: 10px;
+}
+
+.all-list{
+    border: 1px solid #c2c2c2;
+    border-radius: 5px;
+    margin: 15px 20px;
+}
+
+.all-line{
+    --background: #f2f2f2;    
+    border-radius: 5px;
+    margin: 5px 10px;
+}
+
+.blue{
+    background:#4e95f1;
+    border-radius: 5px;
+    padding: 0px 0px;
+    color:#fff;
+}
+
+.red{
+    background: rgb(224, 112, 112);
+    color:#fff;
+    border-radius: 5px;
+    padding: 0px 0px;
+}
+
+.green{
+    border:none;
+    --background: rgb(6, 207, 97);
+    color:#fff;
+    border-radius: 5px;
+    padding: 10px 5px;
+}

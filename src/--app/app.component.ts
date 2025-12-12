@@ -27,10 +27,10 @@ import {
 })
 export class AppComponent {
   public appPages = [    
-    { title: 'Usuários', url: '/user', icon: 'person' },
+    { title: 'Usuários', url: '/folder/Usuários', icon: 'person' },
+    { title: 'Tarefas', url: '/folder/Tarefas', icon: 'list' },
     { title: 'Status das Tarefas', url: '/statusTask', icon: 'alert-circle' },    
-    { title: 'Tipos de Tarefas', url: '/typetask', icon: 'pricetag' },
-    { title: 'Tarefas', url: '/task', icon: 'list' },
+    { title: 'Tipos de Tarefas', url: '/typetask', icon: 'pricetag' }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {

@@ -8,12 +8,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'user',
-    loadComponent: () =>
-    import('./users/user.page').then(m => m.UserPage)
-  },
-
-  {
     path: 'typetask',
     loadComponent: () =>
     import('./typetask/type-task.page').then(m => m.TypeTaskPage)
@@ -23,12 +17,6 @@ export const routes: Routes = [
     path: 'statusTask',
     loadComponent: () =>
     import('./statustask/status-task.page').then(m => m.StatusTaskPage)
-  },
-
-  {
-    path: 'task',
-    loadComponent: () =>
-    import('./task/task.page').then(m => m.TaskPage)
   },
 
   {

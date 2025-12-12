@@ -1,0 +1,148 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Usuários </ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+
+  <ion-card-content class="card-format">
+    <ion-card-title class="card-title"> 
+      {{ isEditing ? 'Editar Usuário' : 'Novo Usuário' }}
+    </ion-card-title>
+  </ion-card-content>
+
+  <!-- Formulário -->
+  <ion-card-content class="card-format">
+    <ion-card-title class="card-title"> 
+      
+      <ion-item>
+        <ion-input label="Nome: " placeholder="Digite o seu nome" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Email:" type="email" placeholder="Digite o seu email@dominio.com" [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input 
+          label="Senha:" 
+          type="password" 
+          placeholder="{{ isEditing ? 'Deixe em branco para não alterar' : 'Digite sua senha' }}" 
+          [(ngModel)]="passwordForm"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input 
+          label="Confirma Senha:" 
+          type="password" 
+          placeholder="Confirme sua senha" 
+          [(ngModel)]="confirmPasswordForm"
+        ></ion-input>
+      </ion-item>
+
+      <!--
+      <ion-item>
+        <ion-input label="Foto (URL):" placeholder="URL da foto (opcional)" [(ngModel)]="picture"></ion-input>
+      </ion-item>
+      -->
+
+      <ion-button 
+        expand="block" 
+        [color]="isEditing ? 'warning' : 'success'"
+        [disabled]="isSaving"
+        (click)="adicionarOuAlterarUsuario()"
+      >
+        {{ isSaving ? 'Salvando...' : (isEditing ? 'Atualizar' : 'Salvar') }}
+      </ion-button> 
+      
+      <ion-button 
+        *ngIf="isEditing"
+        expand="block" 
+        fill="outline"
+        color="medium"
+        (click)="resetForm()"
+      >
+        Cancelar Edição
+      </ion-button>
+
+    </ion-card-title>
+  </ion-card-content>
+  <!-- Fim formulário -->
+
+  <!--Lista de Usuários -->
+  <ion-card-content class="card-format">
+
+    <ion-card-title class="card-title">
+      Usuários Existentes
+    </ion-card-title>
+
+    <ion-grid>
+      <ion-row class="title_line_table">
+        <!-- <ion-col size="auto"> Imagem </ion-col> -->
+        <ion-col size="4"> Usuário </ion-col>
+        <ion-col size="5"> E-mail </ion-col>
+        <ion-col size="auto"> Ações </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+    
+      <ion-row *ngIf="isLoading" class="ion-text-center">
+        <ion-col>
+          <ion-spinner></ion-spinner>
+          <p>Carregando usuários...</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!isLoading && usuarios.length === 0" class="ion-text-center">
+        <ion-col>
+          <p>Nenhum usuário foi encontrado.</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let u of usuarios" class="line_table">
+        
+        <!--
+        <ion-col size="auto"> 
+          <ion-avatar *ngIf="u.picture; else defaultIcon">
+            <img [src]="u.picture" [alt]="'Foto de ' + u.name">
+          </ion-avatar>
+          <ng-template #defaultIcon>
+            <ion-icon name="person-circle-outline" size="large"></ion-icon>
+          </ng-template>
+        </ion-col>
+        -->
+        
+        <ion-col size="4"> {{ u.name }} </ion-col>
+        
+        <ion-col size="5"> {{ u.email }} </ion-col>
+        
+        <ion-col size="auto">
+          
+          <ion-button 
+            fill="clear" 
+            class="blue" 
+            (click)="editUser(u)" 
+            title="Editar {{ u.name }}">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          
+          <ion-button 
+            fill="clear" 
+            class="red" 
+            (click)="deleteUser(u.id)" 
+            title="Desativar {{ u.name }}">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+          
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </ion-card-content> 
+</ion-content>

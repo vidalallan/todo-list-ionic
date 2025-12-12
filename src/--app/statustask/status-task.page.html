@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Status das Tarefas </ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+  
+  <ion-card-content class="card-format">
+    <ion-card-title class="card-title"> 
+      {{ isEditing ? 'Alterar Status Existente' : 'Novo Status de Tarefa' }}
+    </ion-card-title>
+
+    <div class="input-group"> 
+      <ion-input
+        class="tx-input"
+        placeholder="Digite o título para o novo status"
+        [(ngModel)]="novoStatusTitle"
+      ></ion-input>
+
+      <ion-button 
+        color="{{ isEditing ? 'warning' : 'success' }}" 
+        [disabled]="isSaving || !novoStatusTitle || novoStatusTitle.trim() === ''"
+        (click)="adicionarStatus()" 
+      > 
+        <ion-icon name="{{ isEditing ? 'create-outline' : 'add-outline' }}"></ion-icon> 
+        {{ isSaving ? 'Processando...' : (isEditing ? 'Alterar' : 'Adicionar') }}
+      </ion-button>
+      
+      <ion-button 
+        *ngIf="isEditing"
+        color="medium"
+        fill="clear"
+        (click)="resetForm()"
+      >
+        Cancelar
+      </ion-button>
+    </div>
+  </ion-card-content>
+
+  <ion-list class="all-list">
+
+    <ion-list-header>
+      <ion-label> <h1> Status de Tarefas Existentes </h1> </ion-label>
+    </ion-list-header>
+    
+    <div *ngIf="isLoading" class="ion-text-center ion-padding">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Carregando dados...</p>
+    </div>
+
+    <ion-item 
+      lines="none" 
+      class="all-line" 
+      *ngFor="let status of statusTarefas"
+    >
+      <ion-label>
+        {{ status.title | titlecase }} 
+      </ion-label>
+
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        class="orange" 
+        (click)="alterarStatus(status.id)"
+      >
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        class="red" 
+        (click)="excluirStatus(status.id)"
+      >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    
+    <div *ngIf="!isLoading && statusTarefas.length === 0" class="ion-text-center ion-padding">
+        <p>Nenhum status de tarefa ativo encontrado.</p>
+    </div>
+
+  </ion-list>
+
+</ion-content>
